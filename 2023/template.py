@@ -1,10 +1,7 @@
 import sys
 
 def part1(f):
-    x = [[int(x) for c in s if c.isdigit()] for s in f]
-    print(x)
-    y = [a[0]*10 + a[1] for a in x]
-    return sum(y)
+    return 0
 
 def part2(f):
     return 0
