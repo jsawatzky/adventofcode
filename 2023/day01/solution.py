@@ -1,23 +1,11 @@
 import sys
+from functools import reduce
 
 def part1(f):
     return sum([a[0]*10 + a[-1] for a in [[int(c) for c in s if c.isdigit()] for s in f]])
 
 def part2(f):
-    digits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-    arrs = []
-    for l in f:
-        a = []
-        for i in range(len(l)):
-            if l[i].isdigit():
-                a.append(int(l[i]))
-                continue
-            for d in range(len(digits)):
-                if l[i:].startswith(digits[d]):
-                    a.append(d)
-                    break
-        arrs.append(a)
-    return sum([a[0]*10 + a[-1] for a in arrs])
+    return sum([a[0]*10 + a[-1] for a in [[int(c) for c in s if c.isdigit()] for s in [reduce(lambda x, y: x.replace(y[1], y[1][:-1]+str(y[0])+y[1][1:]), {0: 'zero', 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine'}.items(), l) for l in f]]])
 
 if __name__ == "__main__":
     with open(sys.argv[1]) as f:
