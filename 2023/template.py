@@ -1,4 +1,5 @@
 import sys
+from functools import reduce
 
 def part1(f):
     return 0
