@@ -1,9 +1,10 @@
 #!/bin/bash
 
-DATE="${1:-$(date -d tomorrow +%d)}"
+WAIT=0
 if [ -z $1 ]; then
     if [[ "$(date +%H)" > "23" ]]; then
         DATE=$(date -d tomorrow +%d)
+        WAIT=1
     else
         DATE=$(date +%d)
     fi
@@ -20,7 +21,7 @@ mkdir "day$DATE"
 cp template.py day$DATE/solution.py
 code day$DATE/solution.py
 
-if [ -z $1 ]; then
+if [[ $WAIT -eq 1 ]]; then
     aocdl -wait
 else
     aocdl -day $DATE
