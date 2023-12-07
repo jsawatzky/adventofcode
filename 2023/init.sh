@@ -2,7 +2,7 @@
 
 WAIT=0
 if [ -z $1 ]; then
-    if [[ "$(date +%H)" > "23" ]]; then
+    if [[ "$(date +%H)" -eq "23" ]]; then
         DATE=$(date -d tomorrow +%d)
         WAIT=1
     else
