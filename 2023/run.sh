@@ -21,4 +21,4 @@ if [ ! -d "day${DATE}" ]; then
     exit 1
 fi
 
-python3 day$DATE/solution.py day$DATE/$INFILE
+python3.9 day$DATE/solution.py day$DATE/$INFILE
