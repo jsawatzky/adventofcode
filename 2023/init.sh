@@ -19,6 +19,7 @@ fi
 
 mkdir "day$DATE"
 cp template.py day$DATE/solution.py
+touch day$DATE/test.txt
 code day$DATE/solution.py
 
 if [[ $WAIT -eq 1 ]]; then
