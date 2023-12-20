@@ -61,7 +61,6 @@ def part2(f):
                 flows[name].append((check, dest))
 
     def dfs(flow, constraints):
-        print(flow, constraints)
         result = []
         for check in flows[flow]:
             subConstraints = deepcopy(constraints)
@@ -70,13 +69,12 @@ def part2(f):
                 if op == '<':
                     if constraints[p][0] > val: continue
                     subConstraints[p][1] = min(constraints[p][1], val)
-                    constraints[p][0] = max(constraints[p][0], val)
+                    constraints[p][0] = max(constraints[p][0], val)-1
                 else:
                     if constraints[p][1] < val: continue
                     subConstraints[p][0] = max(constraints[p][0], val)
-                    constraints[p][1] = min(constraints[p][1], val)
+                    constraints[p][1] = min(constraints[p][1], val)+1
             if check[1] == 'A':
-                print(flow, 'accepting', subConstraints)
                 result.append(subConstraints)
             elif check[1] != 'R':
                 result.extend(dfs(check[1], deepcopy(subConstraints)))
