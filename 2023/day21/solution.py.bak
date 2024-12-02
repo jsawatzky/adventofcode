@@ -1,0 +1,122 @@
+import sys
+from functools import reduce
+from collections import defaultdict
+from queue import Queue
+from operator import itemgetter
+from math import sqrt, floor, hypot
+
+def solve(grid, maxSteps):
+    start = (-1, -1)
+    for i, r in enumerate(grid):
+        if 'S' not in r:
+            continue
+        start = (i, r.index('S'))
+        break
+    else:
+        raise
+    
+    dists = defaultdict(set)
+    q = Queue()
+    q.put((0, start))
+
+    while not q.empty():
+        curDist, node = q.get()
+
+        alt = curDist + 1
+        if alt > maxSteps:
+            continue
+        for n in [(node[0]-1, node[1]), (node[0]+1, node[1]), (node[0], node[1]-1), (node[0], node[1]+1)]:
+            if n[0] < 0 or n[0] >= len(grid) or n[1] < 0 or n[1] >= len(grid[n[0]]):
+                continue
+            if grid[n[0]][n[1]] == '#':
+                continue
+            if alt in dists[n]:
+                continue
+            dists[n].add(alt)
+            q.put((alt, n))
+
+    return list(map(itemgetter(0), filter(lambda x: maxSteps in x[1], dists.items())))
+
+def part1(f):
+    grid = [list(l.strip()) for l in f if l.strip]
+    return len(solve(grid, 64))
+
+def solve2(grid, maxSteps):
+    start = (-1, -1)
+    for i, r in enumerate(grid):
+        if 'S' not in r:
+            continue
+        start = (i, r.index('S'))
+        break
+    else:
+        raise
+    
+    dists = defaultdict(set)
+    q = Queue()
+    q.put((0, start))
+
+    while not q.empty():
+        curDist, node = q.get()
+
+        alt = curDist + 1
+        if alt > maxSteps:
+            continue
+        for n in [(node[0]-1, node[1]), (node[0]+1, node[1]), (node[0], node[1]-1), (node[0], node[1]+1)]:
+            i = n[0]%len(grid)
+            j = n[1]%len(grid[i])
+            if grid[i][j] == '#':
+                continue
+            if alt in dists[n]:
+                continue
+            dists[n].add(alt)
+            q.put((alt, n))
+
+    return list(map(itemgetter(0), filter(lambda x: maxSteps in x[1], dists.items())))
+
+def part2(f):
+    MAX_STEPS = 26501365
+    grid = [list(l.strip()) for l in f if l.strip]
+    y1 = len(solve2(grid, 65))
+    y2 = len(solve2(grid, 196))
+    y3 = len(solve2(grid, 327))
+    a = (65*(y3-y2)+196*(y1-y3)+327*(y2-y1))/-4496182
+    b = (y2-y1)/131 - a*261
+    c = y1 - a*4225 - b*65
+    return y1+MAX_STEPS*(y2-y1+(MAX_STEPS-1)*(y3-y2-y2+y1)//2)
+    # start = (-1, -1)
+    # for i, r in enumerate(grid):
+    #     if 'S' not in r:
+    #         continue
+    #     start = (i, r.index('S'))
+    #     break
+    # else:
+    #     raise
+
+
+    # oddGrid = solve(grid, 139)
+    # evenGrid = solve(grid, 140)
+
+    # oddCenter = len(list(filter(lambda x: hypot(x[0]-start[0], x[1]-start[1]) <= len(grid)//2, oddGrid)))
+    # evenCenter = len(list(filter(lambda x: hypot(x[0]-start[0], x[1]-start[1]) <= len(grid)//2, evenGrid)))
+
+    # oddCorners = len(oddGrid)-oddCenter
+    # evenCorners = len(evenGrid)-evenCenter
+
+    # cells = (start[0]+MAX_STEPS)//len(grid)
+    # diag = cells+1
+
+    # print('cells', cells)
+    # print('diag', diag)
+    # print('odd', len(oddGrid))
+    # print('even', len(evenGrid))
+    # print('oddCenter', oddCenter)
+
+    # print('evenCenter', evenCenter)
+    
+    # return ((diag**2)*len(oddGrid)) - (diag*oddCorners) + (((diag-1)**2)*len(evenGrid)) + ((diag-1)*evenCorners)
+
+if __name__ == "__main__":
+    with open(sys.argv[1]) as f:
+        print(part1(f))
+    with open(sys.argv[1]) as f:
+        print(part2(f))
