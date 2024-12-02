@@ -1,4 +1,4 @@
-import sys
+import sys, time
 
 def part1(f):
     def is_safe(report):
@@ -30,6 +30,13 @@ def part2(f):
 
 if __name__ == "__main__":
     with open(sys.argv[1]) as f:
-        print(part1(f))
+        start_time = time.process_time()
+        result1 = part1(f)
+        end_time = time.process_time()
+        print(f"Part 1: {result1} (Time: {(end_time - start_time) * 1000:.2f} ms)")
+
     with open(sys.argv[1]) as f:
-        print(part2(f))
+        start_time = time.process_time()
+        result2 = part2(f)
+        end_time = time.process_time()
+        print(f"Part 2: {result2} (Time: {(end_time - start_time) * 1000:.2f} ms)")
