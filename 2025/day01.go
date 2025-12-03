@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func day01() {
-	input := ReadInputLines("day01")
+	input := strings.Split(ReadInput("day01"), "\n")
 
 	angle := 50
 	part1 := 0

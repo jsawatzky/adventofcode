@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func ReadInputLines(file string) []string {
+func ReadInput(file string) string {
 	var path string
 	if TestMode {
 		path = fmt.Sprintf("tests/%s.txt", file)
@@ -17,6 +17,5 @@ func ReadInputLines(file string) []string {
 	if err != nil {
 		panic(err)
 	}
-	lines := strings.Split(strings.TrimRight(string(data), "\n"), "\n")
-	return lines
+	return strings.TrimSpace(string(data))
 }
