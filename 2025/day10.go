@@ -10,6 +10,11 @@ import (
 	"github.com/draffensperger/golp"
 )
 
+// Solve times:
+// Part 1: 29:29
+// Part 2: ~2:30:00
+// Total time: ~3:00:00
+
 func day10() {
 	input := strings.Split(ReadInput("day10"), "\n")
 
