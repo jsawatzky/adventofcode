@@ -105,6 +105,10 @@ func day09() {
 			area := (math.Abs(float64(tile1.X-tile2.X)) + 1) * (math.Abs(float64(tile1.Y-tile2.Y)) + 1)
 			part1 = int(math.Max(area, float64(part1)))
 
+			if area <= float64(part2) {
+				continue
+			}
+
 			x1 := int(math.Min(float64(tile1.X), float64(tile2.X)))
 			x2 := int(math.Max(float64(tile1.X), float64(tile2.X)))
 			y1 := int(math.Min(float64(tile1.Y), float64(tile2.Y)))
